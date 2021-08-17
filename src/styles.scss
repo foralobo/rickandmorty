@@ -1,1 +1,45 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+//@import "node_modules/bulma-scss/bulma";
+//@import "node_modules/bulma-helpers/css/bulma-helpers.css";
+
+//@import "assets/bulmaswatch.min.css";
+
+html, body {
+  height: 100%;
+}
+
+
+.has-border {
+  border: 1px solid gainsboro;
+}
+
+.has-border-top {
+  border-top: 1px solid gainsboro;
+}
+
+.has-border-bottom {
+  border-bottom: 1px solid gainsboro;
+}
+
+.has-border-left {
+  border-left: 1px solid gainsboro;
+}
+
+.has-border-right {
+  border-right: 1px solid gainsboro;
+}
+
+.has-overflow-auto {
+  overflow: auto;
+}
+
+
+.is-bold {
+  font-weight: 700;
+}
+
+.has-cursor-pointer {
+  cursor: pointer;
+}
