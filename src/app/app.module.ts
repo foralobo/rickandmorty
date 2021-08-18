@@ -3,12 +3,15 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
 import {HttpClientModule} from '@angular/common/http';
-import { CharacterCardComponent } from './components/character-card/character-card.component';
-import { PaginatorComponent } from './components/paginator/paginator.component';
-import { EpisodesDetailComponent } from './components/episodes-detail/episodes-detail.component';
-import { ModalEpisodesDetailComponent } from './components/modal-episodes-detail/modal-episodes-detail.component';
-import { ModalLocationDetailComponent } from './components/modal-location-detail/modal-location-detail.component';
-import { HeaderComponent } from './components/header/header.component';
+import {CharacterCardComponent} from './components/character-card/character-card.component';
+import {PaginatorComponent} from './components/paginator/paginator.component';
+import {EpisodesDetailComponent} from './components/episodes-detail/episodes-detail.component';
+import {ModalEpisodesDetailComponent} from './components/modal-episodes-detail/modal-episodes-detail.component';
+import {ModalLocationDetailComponent} from './components/modal-location-detail/modal-location-detail.component';
+import {HeaderComponent} from './components/header/header.component';
+import {FormsModule} from '@angular/forms';
+import { CharacterCardAllInclusiveComponent } from './components/character-card-all-inclusive/character-card-all-inclusive.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -18,11 +21,14 @@ import { HeaderComponent } from './components/header/header.component';
     EpisodesDetailComponent,
     ModalEpisodesDetailComponent,
     ModalLocationDetailComponent,
-    HeaderComponent
+    HeaderComponent,
+    CharacterCardAllInclusiveComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

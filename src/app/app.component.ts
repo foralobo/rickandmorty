@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {DataService} from './data.service';
-import {Character} from './models';
-import {take} from 'rxjs/operators';
+import {Character, VersionType} from './models';
+import {take, takeWhile} from 'rxjs/operators';
 import {HeaderComponent} from './components/header/header.component';
 
 
@@ -9,6 +9,9 @@ import {HeaderComponent} from './components/header/header.component';
   selector: 'app-root',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+
+    <!-- LOADING    -->
+    <app-loading *ngIf="(dataSvc.isLoading$ | async)"></app-loading>
 
     <!--  MODAL FOR LOCATION INFO  -->
     <app-modal-location-detail *ngIf="dataSvc.locationInfo$ | async"
@@ -22,12 +25,13 @@ import {HeaderComponent} from './components/header/header.component';
                                (closeModal)="dataSvc.characterDetails = null"
     ></app-modal-episodes-detail>
 
-
     <!--  PAGE  -->
     <div id="app" class="is-flex is-flex-direction-column">
       <!--  HEADER  -->
       <app-header [totalCount]="(dataSvc.pageInfo$ | async)?.count"
                   (searchTerm)="search($event)"
+                  [selectedOption]="dataSvc.selectedVersion$ | async"
+                  (changeVersion)="changeVersion($event)"
       ></app-header>
 
       <!-- BODY  -->
@@ -35,7 +39,9 @@ import {HeaderComponent} from './components/header/header.component';
            [class.is-flex]="!(dataSvc.characters$ | async)?.length">
 
         <!-- NO DATA ALERT        -->
-        <div class="is-flex is-justify-content-center is-align-items-center is-flex-grow-1" *ngIf="!(dataSvc.characters$ | async)?.length">
+        <div class="is-flex is-justify-content-center is-align-items-center is-flex-grow-1"
+             *ngIf="(dataSvc.isLoading$ | async) === false && !(dataSvc.characters$ | async)?.length"
+        >
           <div class="is-flex is-flex-direction-column is-align-items-center">
             <div class="is-size-1 has-text-grey">no characters found</div>
             <i class="mt-5 is-size-1 has-text-grey fas fa-frown"></i>
@@ -46,14 +52,25 @@ import {HeaderComponent} from './components/header/header.component';
         <div class="container" *ngIf="(dataSvc.characters$ | async)?.length">
           <div class="columns is-multiline">
             <div class="column is-half" *ngFor="let character of (dataSvc.characters$ | async)">
-              <app-character-card [character]="character"
+
+
+              <!-- CARD CHARACTER IN ALL INCLUSIVE VERSION TYPE -->
+              <app-character-card-all-inclusive *ngIf="(dataSvc.selectedVersion$ | async) === VERSION_TYPE_ALL_INCLUSIVE"
+                                                [character]="character"
+                                                [locationsInfo]="dataSvc.locationsInfoAllInclusive"
+                                                [episodesInfo]="dataSvc.episodesInfoAllInclusive"
+              ></app-character-card-all-inclusive>
+
+              <!-- CARD CHARACTER IN ALTERNATIVE VERSION TYPE -->
+              <app-character-card *ngIf="(dataSvc.selectedVersion$ | async) === VERSION_TYPE_ALTERNATIVE"
+                                  [character]="character"
                                   (locationInfo)="getLocationInfo($event)"
                                   (episodesInfo)="getEpisodesInfo(character, $event)"
               ></app-character-card>
+
             </div>
           </div>
         </div>
-
       </div>
 
       <!-- FOOTER      -->
@@ -75,8 +92,11 @@ import {HeaderComponent} from './components/header/header.component';
 export class AppComponent implements OnInit, OnDestroy {
   title = 'rick and morty';
   alive = true;
-  // searchTerm$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
+  VERSION_TYPE_ALTERNATIVE: VersionType = 'alternative';
+  VERSION_TYPE_ALL_INCLUSIVE: VersionType = 'all';
+
+  // HEADER COMPONENT REF
   @ViewChild(HeaderComponent) headerComponentRef: HeaderComponent;
 
   constructor(public dataSvc: DataService) {
@@ -84,7 +104,12 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // FIRST CALL
-    this.dataSvc.getCharacters().subscribe();
+    // this.dataSvc.getCharacters().subscribe();
+
+    this.dataSvc.selectedVersion$.pipe(takeWhile(() => this.alive)).subscribe(versionType => {
+      console.log(versionType);
+      this.dataSvc.getCharacters().subscribe();
+    });
   }
 
   ngOnDestroy(): void {
@@ -94,7 +119,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   // SEARCH BY CHARACTER NAME
   search(searchTerm): void {
-    console.log(searchTerm);
     this.dataSvc.getCharacters(1, searchTerm).subscribe();
   }
 
@@ -113,4 +137,10 @@ export class AppComponent implements OnInit, OnDestroy {
       this.dataSvc.getCharacters(page, search).subscribe();
     });
   }
+
+
+  changeVersion(versionType: VersionType): void {
+    this.dataSvc.selectedVersion = versionType;
+  }
+
 }

@@ -1,3 +1,5 @@
+export type VersionType = 'alternative' | 'all';
+
 export interface PageInfo {
   count: number;
   next: string;

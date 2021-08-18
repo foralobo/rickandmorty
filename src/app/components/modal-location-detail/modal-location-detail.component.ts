@@ -8,7 +8,6 @@ import {Location} from '../../models';
          [class.is-active]="locationInfo">
       <div class="modal-background" (click)="closeModal.emit()"></div>
 
-
       <div class="modal-content has-background-white p-4 has-radius is-flex is-flex-direction-column">
 
         <div>Info about</div>

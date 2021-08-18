@@ -1,11 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 
+//$pagination-current-background-color:  hsl(207, 61%, 53%);
+//$pagination-current-border-color:  hsl(207, 61%, 53%);
 
-//@import "node_modules/bulma-scss/bulma";
-//@import "node_modules/bulma-helpers/css/bulma-helpers.css";
-
-$pagination-current-background-color:  hsl(207, 61%, 53%);
-$pagination-current-border-color:  hsl(207, 61%, 53%);
+// CUSTOMIZATION BULMA CSS
+$pagination-current-background-color:  #07b2c9;
+$pagination-current-border-color:  #07b2c9;
+$info: #07b2c9;
 @import "node_modules/bulma-scss/bulma.scss";
 
 html, body {
@@ -49,4 +50,9 @@ html, body {
 .has-cursor-pointer {
   cursor: pointer;
   pointer-events: auto !important;
+}
+
+.has-shadow {
+  z-index: 10;
+  box-shadow: 0px 0px 18px #d6d6d6;
 }

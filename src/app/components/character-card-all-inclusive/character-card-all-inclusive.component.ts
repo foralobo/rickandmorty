@@ -1,10 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Character, VersionType} from '../../models';
+import {Character, Episode} from '../../models';
 
 @Component({
-  selector: 'app-character-card',
+  selector: 'app-character-card-all-inclusive',
   template: `
-
     <div class="p-3" *ngIf="character"
          [class.box]="!modalMode"
     >
@@ -52,59 +51,51 @@ import {Character, VersionType} from '../../models';
 
             <div class="is-size-6 mb-2">
               <div class="is-bold is-size-7">Comes from</div>
-              <div *ngIf="character.origin.name !== 'unknown' else unknownLocation"
-                   [class.has-text-info]="!modalMode"
-                   [class.has-cursor-pointer]="!modalMode"
-                   (click)="!modalMode && locationInfo.emit(character.origin.url)"
-              >{{character.origin.name}}</div>
+              <div *ngIf="character.origin.name !== 'unknown' else unknownLocation">{{character.origin.name}}</div>
             </div>
 
             <div class="is-size-6 mb-2">
               <div class="is-bold is-size-7">Last known location</div>
-              <div *ngIf="character.location.name !== 'unknown' else unknownLocation"
-                   [class.has-text-info]="!modalMode"
-                   [class.has-cursor-pointer]="!modalMode"
-                   (click)="!modalMode && locationInfo.emit(character.location.url)"
-              >{{character.location.name}}</div>
+              <div *ngIf="character.location.name !== 'unknown' else unknownLocation">{{character.location.name}}</div>
             </div>
           </div>
         </div>
 
       </div>
 
-      <div class="has-border-top pt-2 is-flex is-justify-content-space-between is-align-items-center">
-        <div class="">Episodes: <span class="is-bold">{{character.episode.length}}</span></div>
-        <div *ngIf="!modalMode" class="is-size-7 has-text-info has-cursor-pointer" (click)="detailsToggle()">See details</div>
+      <div class="has-border-bottom">Episodes list (<span class="is-bold">{{character.episode.length}}</span>)</div>
+
+      <div class="pt-2 has-overflow-auto is-flex is-flex-wrap-wrap"
+           [style.max-height.px]="105">
+
+        <div *ngFor="let episode of character.episode" class="is-bold is-size-7 "
+             [style.width.%]="50">
+
+          <div>
+            <span class="tag is-info my-1 mr-2"
+                 [style.width.px]="65"
+            >{{episodesInfo[episode].episode}}</span>
+            <span>{{episodesInfo[episode].name}}</span>
+          </div>
+        </div>
       </div>
-    </div>
-  `,
-  styleUrls: ['./character-card.component.scss']
+    </div>`,
+  styleUrls: ['./character-card-all-inclusive.component.scss']
 })
-export class CharacterCardComponent implements OnInit {
+export class CharacterCardAllInclusiveComponent implements OnInit {
 
   readonly STATUS_ALIVE = 'Alive';
   readonly STATUS_DEAD = 'Dead';
 
-
   @Input() modalMode = false;
   @Input() character: Character;
-
-  @Output() locationInfo: EventEmitter<string> = new EventEmitter<string>();
-  @Output() episodesInfo: EventEmitter<number[]> = new EventEmitter<number[]>();
+  @Input() locationsInfo: { [key: string]: Location };
+  @Input() episodesInfo: { [key: string]: Episode };
 
   constructor() {
   }
 
   ngOnInit(): void {
-  }
-
-  detailsToggle(): void {
-    // GET IDS LIST OF EPISODES TO GET INFO ON THEM
-    const episodeListIDs = this.character.episode.map(item => {
-      const splitted = item.split('/');
-      return parseInt(splitted[splitted.length - 1], 10);
-    });
-    this.episodesInfo.emit(episodeListIDs);
   }
 
 }
