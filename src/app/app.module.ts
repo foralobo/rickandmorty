@@ -8,6 +8,7 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
 import { EpisodesDetailComponent } from './components/episodes-detail/episodes-detail.component';
 import { ModalEpisodesDetailComponent } from './components/modal-episodes-detail/modal-episodes-detail.component';
 import { ModalLocationDetailComponent } from './components/modal-location-detail/modal-location-detail.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ModalLocationDetailComponent } from './components/modal-location-detail
     PaginatorComponent,
     EpisodesDetailComponent,
     ModalEpisodesDetailComponent,
-    ModalLocationDetailComponent
+    ModalLocationDetailComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
