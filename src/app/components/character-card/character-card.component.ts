@@ -8,7 +8,6 @@ import {Character} from '../../models';
     <div class="p-3" *ngIf="character"
          [class.box]="!modalMode"
     >
-
       <nav class="level mb-2">
         <div class="level-left">
           <div class="level-item">
@@ -33,7 +32,6 @@ import {Character} from '../../models';
             </div>
           </div>
         </div>
-
       </nav>
 
 

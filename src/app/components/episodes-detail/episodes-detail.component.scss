@@ -1,0 +1,10 @@
+.episode-wrap {
+  position: relative;
+
+  .badge {
+    position: absolute;
+    border-top-right-radius: 6px;
+    right: 0;
+    top: 0;
+  }
+}

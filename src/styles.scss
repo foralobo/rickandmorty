@@ -48,4 +48,5 @@ html, body {
 
 .has-cursor-pointer {
   cursor: pointer;
+  pointer-events: auto !important;
 }
