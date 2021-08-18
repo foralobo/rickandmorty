@@ -3,12 +3,20 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
 import {HttpClientModule} from '@angular/common/http';
-import { CharacterCardComponent } from './character-card/character-card.component';
+import { CharacterCardComponent } from './components/character-card/character-card.component';
+import { PaginatorComponent } from './components/paginator/paginator.component';
+import { EpisodesDetailComponent } from './components/episodes-detail/episodes-detail.component';
+import { ModalEpisodesDetailComponent } from './components/modal-episodes-detail/modal-episodes-detail.component';
+import { ModalLocationDetailComponent } from './components/modal-location-detail/modal-location-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CharacterCardComponent
+    CharacterCardComponent,
+    PaginatorComponent,
+    EpisodesDetailComponent,
+    ModalEpisodesDetailComponent,
+    ModalLocationDetailComponent
   ],
   imports: [
     BrowserModule,

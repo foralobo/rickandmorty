@@ -26,6 +26,25 @@ export interface Character {
     url: string;
   };
   image: string;
+  episode: string[];
+  url: string;
+  created: string;
+  episodesInfo: Episode[];
+}
+
+export interface Location {
+  id: number;
+  name: string;
+  residents: string[];
+  type: string;
+  url: string;
+  dimension: string;
+}
+
+export interface Episode {
+  id: number;
+  name: string;
+  air_date: string[];
   episode: string;
   url: string;
   created: string;

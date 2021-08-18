@@ -4,7 +4,9 @@
 //@import "node_modules/bulma-scss/bulma";
 //@import "node_modules/bulma-helpers/css/bulma-helpers.css";
 
-//@import "assets/bulmaswatch.min.css";
+$pagination-current-background-color:  hsl(207, 61%, 53%);
+$pagination-current-border-color:  hsl(207, 61%, 53%);
+@import "node_modules/bulma-scss/bulma.scss";
 
 html, body {
   height: 100%;
@@ -33,6 +35,10 @@ html, body {
 
 .has-overflow-auto {
   overflow: auto;
+}
+
+.has-radius {
+  border-radius: 6px;
 }
 
 
