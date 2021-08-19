@@ -12,6 +12,7 @@ import {Location} from '../../models';
 
         <div>Info about</div>
         <div class="title">{{locationInfo?.name}}</div>
+        <div class="is-size-5">Location type <span class="is-bold">{{locationInfo.type}}</span></div>
         <div class="is-size-5">Dimension <span class="is-bold">{{locationInfo?.dimension}}</span></div>
         <div class="is-size-5">amount of residents <span class="is-bold">{{locationInfo.residents.length}}</span></div>
 

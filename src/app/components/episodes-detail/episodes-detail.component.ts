@@ -8,7 +8,6 @@ import {Episode} from '../../models';
       <div class="has-overflow-auto has-border-top has-border-bottom"
            [style.max-height.px]="300"
       >
-
         <div *ngFor="let episode of episodesInfo" class="py-1 px-2 my-1 has-border has-radius episode-wrap">
           <div class="is-bold is-size-7 badge px-2 py-1 has-background-info1 has-text-white1">{{episode.episode}}</div>
           <div class="is-size-5">{{episode.name}}</div>

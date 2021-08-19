@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Character, Episode} from '../../models';
+import {Character, Episode, Location} from '../../models';
 
 @Component({
   selector: 'app-character-card-all-inclusive',
@@ -40,25 +40,13 @@ import {Character, Episode} from '../../models';
           <figure class="image is-128x128">
             <img class="is-rounded" [src]="character.image" style="box-shadow: 2px 2px 4px -1px #a2a2a2"/>
           </figure>
-
         </div>
 
-        <div class="ml-6">
-          <div>
-            <ng-template #unknownLocation>
-              <span class="is-italic is-size-7 has-text-grey">Unknown location</span>
-            </ng-template>
+        <div class="ml-4 is-flex-grow-1">
 
-            <div class="is-size-6 mb-2">
-              <div class="is-bold is-size-7">Comes from</div>
-              <div *ngIf="character.origin.name !== 'unknown' else unknownLocation">{{character.origin.name}}</div>
-            </div>
-
-            <div class="is-size-6 mb-2">
-              <div class="is-bold is-size-7">Last known location</div>
-              <div *ngIf="character.location.name !== 'unknown' else unknownLocation">{{character.location.name}}</div>
-            </div>
-          </div>
+          <app-location-detail title="Comes from" [location]="locationsInfo[character.origin.url]"></app-location-detail>
+          <div class="has-border-bottom my-3"></div>
+          <app-location-detail title="Last know location" [location]="locationsInfo[character.location.url]"></app-location-detail>
         </div>
 
       </div>
@@ -71,9 +59,9 @@ import {Character, Episode} from '../../models';
         <div *ngFor="let episode of character.episode" class="is-bold is-size-7 "
              [style.width.%]="50">
 
-          <div>
+          <div class="is-ellipsis" [title]="episodesInfo[episode].name">
             <span class="tag is-info my-1 mr-2"
-                 [style.width.px]="65"
+                  [style.width.px]="65"
             >{{episodesInfo[episode].episode}}</span>
             <span>{{episodesInfo[episode].name}}</span>
           </div>

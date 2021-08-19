@@ -12,6 +12,7 @@ import {HeaderComponent} from './components/header/header.component';
 import {FormsModule} from '@angular/forms';
 import { CharacterCardAllInclusiveComponent } from './components/character-card-all-inclusive/character-card-all-inclusive.component';
 import { LoadingComponent } from './components/loading/loading.component';
+import { LocationDetailComponent } from './components/location-detail/location-detail.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { LoadingComponent } from './components/loading/loading.component';
     ModalLocationDetailComponent,
     HeaderComponent,
     CharacterCardAllInclusiveComponent,
-    LoadingComponent
+    LoadingComponent,
+    LocationDetailComponent
   ],
   imports: [
     BrowserModule,
