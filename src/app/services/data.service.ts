@@ -4,10 +4,12 @@ import {HttpClient} from '@angular/common/http';
 import {catchError, delay, mergeMap, take, tap, withLatestFrom} from 'rxjs/operators';
 import {Character, PageInfo, ResponseApi, Location, Episode, VersionType} from '../models';
 
+export interface MyData {
+  name: string;
+}
 
-@Injectable({
-  providedIn: 'root'
-})
+
+@Injectable()
 export class DataService {
 
   private _selectedVersion$: BehaviorSubject<VersionType> = new BehaviorSubject<VersionType>('all');
@@ -36,6 +38,7 @@ export class DataService {
 
 
   // KEEP IN MEMORY FOR PAGE (ALL INCLUSIVE VERSION TYPE)
+  // KEEP IN MEMORY FOR PAGE (ALL INCLUSIVE VERSION TYPE)
   private _locationsInfoAllInclusive = {};
   get locationsInfoAllInclusive(): { [key: string]: Location } {
     return this._locationsInfoAllInclusive;
@@ -45,6 +48,9 @@ export class DataService {
   get episodesInfoAllInclusive(): { [key: string]: Episode } {
     return this._episodesInfoAllInclusive;
   }
+  // KEEP IN MEMORY FOR PAGE (ALL INCLUSIVE VERSION TYPE)
+  // KEEP IN MEMORY FOR PAGE (ALL INCLUSIVE VERSION TYPE)
+
 
   readonly BASE_API_CHARACTER = 'https://rickandmortyapi.com/api/character';
   readonly BASE_API_EPISODES = 'https://rickandmortyapi.com/api/episode';
@@ -65,6 +71,7 @@ export class DataService {
     }
   }
 
+
   private _getIDsFromURLs(urls: string[]): number[] {
     return urls.map(key => parseInt(key.substr(key.lastIndexOf('/') + 1, key.length - 1), 10));
   }
@@ -75,7 +82,7 @@ export class DataService {
   // STEPS:
   // - IT RUNS THE FIRST CALL TO GET CHARACTERS
   // - WITH THE CHARACTERS IN MEMORY, WE CAN GROUP ALL EPISODES AND LOCATIONS OF ALL CHARACTERS IN THE PAGES
-  // - THE IT CAN DO THE TWO CALL IN PARALLEL (FORKJOIN RXJS OPERATOR) AND TO GET ALL INFO ON LOCATIONS AND EPISODES
+  // - THEN IT CAN EXECUTE THE TWO CALL IN PARALLEL (FORKJOIN RXJS OPERATOR) AND TO GET ALL INFO ON LOCATIONS AND EPISODES
   private _getCharactersAllInclusive(page = 1, name = ''): Observable<ResponseApi> {
     return this.http.get<ResponseApi>(`${this.BASE_API_CHARACTER}/?page=${page}&name=${name}`).pipe(
       mergeMap(result => {
@@ -106,18 +113,10 @@ export class DataService {
         });
 
         // GET IDS LIST OF EPISODES TO GET INFO ON THEM
-        // console.log(neededEpisodes);
-        // const episodesIDs = Object.keys(neededEpisodes).map(key => parseInt(key.substr(key.lastIndexOf('/') + 1, key.length - 1), 10));
         const episodesIDs = this._getIDsFromURLs(Object.keys(neededEpisodes));
 
         // GET IDS LIST OF LOCATIONS TO GET INFO ON THEM
-        // console.log(neededLocations);
-        // const locationIDs = Object.keys(neededLocations).map(key => parseInt(key.substr(key.lastIndexOf('/') + 1, key.length - 1), 10));
         const locationIDs = this._getIDsFromURLs(Object.keys(neededLocations));
-
-        // console.log(episodesIDs);
-        // console.log(locationIDs);
-        // console.log(result);
 
         const episodesCall = this.http.get<Episode | Episode[]>(`${this.BASE_API_EPISODES}/${episodesIDs}`);
         const locationsCall = this.http.get<Location | Location[]>(`${this.BASE_API_LOCATION}/${locationIDs}`);
@@ -144,11 +143,7 @@ export class DataService {
         locationArray.forEach(item => this._locationsInfoAllInclusive[`${this.BASE_API_LOCATION}/${item.id}`] = item);
         // SET CHARACTERS LIST
         this._characters$.next(characters);
-
         // NOW THERE ARE ALL INFORMATION FOR PAGE
-
-        console.log(this._episodesInfoAllInclusive);
-        console.log(this._locationsInfoAllInclusive);
 
         this._isLoading$.next(false);
       }),
@@ -170,6 +165,7 @@ export class DataService {
   }
 
   // GET CHARACTERS WITH PAGINATION (ALTERNATIVE TYPE)
+  // IN THIS CASE WE GET ONLY CHARCTERS INFO AND NOTHING ELSE
   private _getCharactersAlternative(page = 1, name = ''): Observable<ResponseApi> {
     return this.http.get<ResponseApi>(`${this.BASE_API_CHARACTER}/?page=${page}&name=${name}`).pipe(
       tap(result => {
@@ -198,13 +194,13 @@ export class DataService {
   // GET EPISODES BY IDS (ALTERNATIVE TYPE)
   getEpisodes(character: Character, ids: number[]): Observable<Episode | Episode[]> {
 
-    // THIS CHARACTER ALREADY HAS THE INFORMATIONS
+    // THIS CHARACTER ALREADY HAS THE INFORMATION
     if (character.episodesInfo && character.episodesInfo.length) {
       this._characterDetails$.next(character);
       return of(null);
     }
 
-    // IF THE CHARACTER HAS NOT THE INFORMATIONS
+    // IF THE CHARACTER HAS NOT THE INFORMATION
     this._isLoading$.next(true);
     return this.http.get<Episode | Episode[]>(`${this.BASE_API_EPISODES}/${ids}`).pipe(
       withLatestFrom(this.characters$),
@@ -260,7 +256,7 @@ export class DataService {
   }
 
 
-  // SETTER FOR SETTING FRO EXTERNAL SOURCE
+  // SETTER FOR SETTING FROM EXTERNAL SOURCE
   set locationInfo(location) {
     this._locationInfo$.next(location);
   }

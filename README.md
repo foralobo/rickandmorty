@@ -25,7 +25,7 @@ The profile of a character should include:
 - Name of the chapters the character is featured on.
 
 
-## Description
+## DESCRIZIONE
 
 Ho usato Angular (versione 11) in quanto è il framework che utilizzo quotidianamente e 
 avevo poco tempo a disposizoione . Non perchè lo reputo megliore di altri (infatti non lo penso).
@@ -73,3 +73,27 @@ Credo siano abbastanza chiari i motivi della mia scelta ma spero avremo modo di 
 
 
 In entrambe le versioni, è presente la funzionalità di paginazione e ricerca personaggi per nome.
+
+### STRUTTURA APP
+ Per quanto riguarda la struttura, l'app è abbastanza semplice, prensenta pochi componenti e
+ solo una sezione per cui ho deciso di usare una struttura classica raggruppando i componenti, 
+ i servizi e i modelli in relative directories. 
+ Di solito per applicazioni complesse, suddivido le macrosezioni dell'app in moduli angular separati
+ per una migliore gestione e poi ogni singolo modulo viene caricato in lazy loading su richiesta.
+ In quel caso anche la struttura delle directoris cambia è origanizzata in modo che ogni directory abbia
+ tutto quello che necessita quel modulo.
+ Non è tuttavia il caso di questa app in quanto esiste un singolo Container (Smart Component) che è l'AppComponent
+ 
+ Ho usato un unico service angular per simulare una sorta di "state manager". Ho ritenuto inutile
+ pensare ad una libretia esterna (ngrx, ngxs) in questo caso vista la natura del progetto.
+ Il service usa degli oggetti Observables (angular fa ampio uso di RxJs) e con essi vado a simulare
+ i classici selettori di uno state manager. 
+ In una piccola applicazione del genere va bene usare un servizio in questo modo.
+ 
+ Inoltre ho usato anche la "changeDetectionStrategy.OnPush" come strategia di change detection.
+ In questo caso è totalmente inutile perchè non porta benefici (o cmq sono minimi) ma ho cercato di 
+ adottare quanto piu possibile le "best practices" seguendo il testo dell'esercizio:
+ 
+ `Write the code with production standards in mind.`
+  
+ 

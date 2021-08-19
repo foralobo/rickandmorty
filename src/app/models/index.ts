@@ -9,7 +9,7 @@ export interface PageInfo {
 
 export interface ResponseApi {
   info: PageInfo;
-  results: any[];
+  results: Character[];
 }
 
 export interface Character {
@@ -31,7 +31,7 @@ export interface Character {
   episode: string[];
   url: string;
   created: string;
-  episodesInfo: Episode[];
+  episodesInfo?: Episode[];
 }
 
 export interface Location {
@@ -41,6 +41,7 @@ export interface Location {
   type: string;
   url: string;
   dimension: string;
+  created: string;
 }
 
 export interface Episode {

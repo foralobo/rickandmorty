@@ -74,7 +74,7 @@ import {HeaderComponent} from './components/header/header.component';
       </div>
 
       <!-- FOOTER      -->
-      <div class="p-4 has-shadow has-background-white">
+      <div id='footer' class="p-4 has-shadow has-background-white">
         <div class="container">
           <app-paginator (changePage)="goTo($event)"
                          [isLoading]="dataSvc.isLoading$ | async"
@@ -103,12 +103,10 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // FIRST CALL
-    // this.dataSvc.getCharacters().subscribe();
 
+    // FIRST CALL RUN FROM IT
     this.dataSvc.selectedVersion$.pipe(takeWhile(() => this.alive)).subscribe(versionType => {
-      console.log(versionType);
-      this.dataSvc.getCharacters().subscribe(console.log);
+      this.dataSvc.getCharacters().subscribe();
     });
   }
 

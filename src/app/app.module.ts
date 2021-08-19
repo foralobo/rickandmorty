@@ -13,6 +13,7 @@ import {FormsModule} from '@angular/forms';
 import { CharacterCardAllInclusiveComponent } from './components/character-card-all-inclusive/character-card-all-inclusive.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { LocationDetailComponent } from './components/location-detail/location-detail.component';
+import {DataService} from './services/data.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { LocationDetailComponent } from './components/location-detail/location-d
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

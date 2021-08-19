@@ -6,7 +6,8 @@ import {VersionType} from '../../models';
 @Component({
   selector: 'app-header',
   template: `
-    <div class="p-4 has-shadow has-background-white">
+    <div id='header'
+         class="p-4 has-shadow has-background-white">
       <div class="is-flex is-justify-content-space-between container">
 
         <div class="is-flex is-align-items-center">
