@@ -1,7 +1,6 @@
 import {TestBed, tick} from '@angular/core/testing';
-import { AppComponent } from './app.component';
+import {AppComponent} from './app.component';
 import {DataService} from './services/data.service';
-import {HttpClient} from '@angular/common/http';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('AppComponent', () => {
@@ -30,7 +29,6 @@ describe('AppComponent', () => {
   it('renders footer', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
-    // tick(100);
     const compiled = fixture.nativeElement;
     expect(compiled.querySelector('#footer')).toBeTruthy();
   });
