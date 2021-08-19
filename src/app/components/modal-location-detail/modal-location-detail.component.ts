@@ -8,11 +8,11 @@ import {Location} from '../../models';
          [class.is-active]="locationInfo">
       <div class="modal-background" (click)="closeModal.emit()"></div>
 
-      <div class="modal-content has-background-white p-4 has-radius is-flex is-flex-direction-column">
+      <div class="modal-content has-background-white p-4 has-radius is-flex is-flex-direction-column" *ngIf="locationInfo">
 
         <div>Info about</div>
         <div class="title">{{locationInfo?.name}}</div>
-        <div class="is-size-5">Dimension <span class="is-bold">{{locationInfo.dimension}}</span></div>
+        <div class="is-size-5">Dimension <span class="is-bold">{{locationInfo?.dimension}}</span></div>
         <div class="is-size-5">amount of residents <span class="is-bold">{{locationInfo.residents.length}}</span></div>
 
         <button class="button is-rounded is-info is-small is-align-self-flex-end" aria-label="close"

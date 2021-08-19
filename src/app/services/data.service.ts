@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject, forkJoin, Observable, of} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {catchError, delay, mergeMap, take, tap, withLatestFrom} from 'rxjs/operators';
-import {Character, PageInfo, ResponseApi, Location, Episode, VersionType} from './models';
+import {Character, PageInfo, ResponseApi, Location, Episode, VersionType} from '../models';
 
 
 @Injectable({
@@ -107,11 +107,13 @@ export class DataService {
 
         // GET IDS LIST OF EPISODES TO GET INFO ON THEM
         // console.log(neededEpisodes);
-        const episodesIDs = Object.keys(neededEpisodes).map(key => parseInt(key.substr(key.lastIndexOf('/') + 1, key.length - 1), 10));
+        // const episodesIDs = Object.keys(neededEpisodes).map(key => parseInt(key.substr(key.lastIndexOf('/') + 1, key.length - 1), 10));
+        const episodesIDs = this._getIDsFromURLs(Object.keys(neededEpisodes));
 
         // GET IDS LIST OF LOCATIONS TO GET INFO ON THEM
         // console.log(neededLocations);
-        const locationIDs = Object.keys(neededLocations).map(key => parseInt(key.substr(key.lastIndexOf('/') + 1, key.length - 1), 10));
+        // const locationIDs = Object.keys(neededLocations).map(key => parseInt(key.substr(key.lastIndexOf('/') + 1, key.length - 1), 10));
+        const locationIDs = this._getIDsFromURLs(Object.keys(neededLocations));
 
         // console.log(episodesIDs);
         // console.log(locationIDs);

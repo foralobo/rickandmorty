@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {DataService} from './data.service';
+import {DataService} from './services/data.service';
 import {Character, VersionType} from './models';
 import {take, takeWhile} from 'rxjs/operators';
 import {HeaderComponent} from './components/header/header.component';
@@ -108,7 +108,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.dataSvc.selectedVersion$.pipe(takeWhile(() => this.alive)).subscribe(versionType => {
       console.log(versionType);
-      this.dataSvc.getCharacters().subscribe();
+      this.dataSvc.getCharacters().subscribe(console.log);
     });
   }
 
