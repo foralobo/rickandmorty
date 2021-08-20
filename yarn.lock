@@ -2159,11 +2159,6 @@ builtins@^1.0.3:
   resolved "https://registry.yarnpkg.com/builtins/-/builtins-1.0.3.tgz#cb94faeb61c8696451db36534e1422f94f0aee88"
   integrity sha1-y5T662HIaWRR2zZTThQi+U8K7og=
 
-bulma-helpers@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/bulma-helpers/-/bulma-helpers-0.4.0.tgz#f437ca91f6e2a50d438e18bb589803da8b3ae83f"
-  integrity sha512-N1+hW7tzEb8DaWLbBXhqM9zYay18c99Zw2WtzBiovXPWv/BtSDUVk0IOqmPT+4p6JjFFc1filZ4IY1mLmh+hcA==
-
 bulma-scss@^0.9.3:
   version "0.9.3"
   resolved "https://registry.yarnpkg.com/bulma-scss/-/bulma-scss-0.9.3.tgz#9285c601dc5aff64f3d5b3eedc10e1edad683a6e"
