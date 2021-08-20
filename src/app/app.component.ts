@@ -1,8 +1,9 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {DataService} from './services/data.service';
 import {Character, VersionType} from './models';
-import {take, takeWhile} from 'rxjs/operators';
+import {mergeMap, switchMap, take, takeWhile} from 'rxjs/operators';
 import {HeaderComponent} from './components/header/header.component';
+import {combineLatest, of} from 'rxjs';
 
 
 @Component({
@@ -105,9 +106,22 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     // FIRST CALL RUN FROM IT
-    this.dataSvc.selectedVersion$.pipe(takeWhile(() => this.alive)).subscribe(versionType => {
-      this.dataSvc.getCharacters().subscribe();
-    });
+    this.dataSvc.selectedVersion$.pipe(
+      takeWhile(() => this.alive),
+      switchMap(versionType => {
+
+        // MANAGE CHANGE VERSION WITH ACTIVE FILTER
+        // ASK FOR CHARACTERS CONSIDERING ALSO THE FILTER
+        if (this.headerComponentRef) {
+          this.goTo(1);
+          return of(null);
+        } else {
+          // FIST TIME ON APP RUN
+          return this.dataSvc.getCharacters();
+        }
+
+      })
+    ).subscribe();
   }
 
   ngOnDestroy(): void {

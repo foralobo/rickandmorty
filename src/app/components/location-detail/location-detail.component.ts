@@ -28,16 +28,12 @@ import {Location} from '../../models';
   `,
   styleUrls: ['./location-detail.component.scss']
 })
-export class LocationDetailComponent implements OnInit {
+export class LocationDetailComponent {
 
   @Input() title: string;
   @Input() location: Location;
 
   constructor() {
-  }
-
-  ngOnInit(): void {
-    console.log(this.location);
   }
 
 }
